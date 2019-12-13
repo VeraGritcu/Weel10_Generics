@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Generics
 {
-   internal class GenericList<T>
+    internal class GenericList<T> where T : struct
     {
+
         private T[] InternalArray { get; set; }
         private int size;
         private int countElementIdx;
@@ -17,7 +18,7 @@ namespace Generics
             this.size = size;
             this.InternalArray = new T[size];
             this.countElementIdx = 0;
-    }
+        }
 
         internal void Add(T param)
         {
@@ -38,7 +39,7 @@ namespace Generics
             {
                 return this.InternalArray[index];
             }
-            
+
             throw new ArgumentException("Index inconsistency");
         }
 
@@ -89,6 +90,7 @@ namespace Generics
             return false;
         }
 
+
         public override string ToString()
         {
             string result = null;
@@ -98,5 +100,22 @@ namespace Generics
             }
             return result;
         }
+        internal GenericList<T> AutoGrow()
+        {
+            var currentLength = 0;
+            if (this.InternalArray[InternalArray.Length - 1].Equals(default(T)))
+            {
+                currentLength = this.InternalArray.Length;
+            }
+
+            var newArray = new GenericList<T>(currentLength * 2);
+
+            for (int i = 0, j=0; i < this.InternalArray.Length; i++, j++)
+            {
+                newArray.InternalArray[i] = this.InternalArray[j];
+            }
+            return newArray;
+        }
+       
     }
 }

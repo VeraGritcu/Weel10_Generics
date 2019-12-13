@@ -17,6 +17,7 @@ namespace Generics
             myList.Add(5);
             myList.Add(7);
             myList.Add(9);
+
             myList.Add(11);
             myList.Add(13);
             myList.Add(15);
@@ -27,11 +28,11 @@ namespace Generics
             var myElement = myList.GetByIndex(5);
             Console.WriteLine(myElement);
 
-            //myList.RemoveByIndex(12);
+           
 
             myList.InsertValueAt(9, 20);
 
-            //myList.ClearList();
+            myList.ClearList();
 
             var myString = myList.ToString();
             Console.WriteLine(myString);
