@@ -151,8 +151,6 @@ namespace Generics
         }
         public T getArrayMin()
         {
-            if (this.size == 0)
-                throw new NullReferenceException("We cannot find min value in an empty array");
             var min = this.InternalArray[0];
             for (var i = 1; i < this.size; i++)
             {
@@ -176,8 +174,7 @@ namespace Generics
         }
         public T getArrayMax()
         {
-            if (this.size == 0)
-                throw new NullReferenceException("We cannot find max value in an empty array");
+            
             var max = this.InternalArray[0];
             for (var i = 1; i < this.size; i++)
             {
