@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Generics
 {
-    internal class GenericList<T> where T : struct
+    internal class GenericList<T> where T : struct, IComparable
     {
 
         private T[] InternalArray { get; set; }
@@ -20,6 +20,28 @@ namespace Generics
             this.countElementIdx = 0;
         }
 
+        public T this[int index]
+        {
+            get
+            {
+                if (index < 0 && index >= this.InternalArray.Length)
+                {
+                    throw new IndexOutOfRangeException("Cannot store more objects");
+                }
+                return this.InternalArray[index];
+
+            }
+            set
+            {
+                if (index < 0 && index >= this.InternalArray.Length)
+                {
+                    throw new IndexOutOfRangeException("Cannot store more objects");
+                }
+                this.InternalArray[index] = value;
+
+            }
+
+        }
         internal void Add(T param)
         {
             if (this.size > this.countElementIdx)
@@ -99,6 +121,7 @@ namespace Generics
                 result += $"[{item.ToString()}] ";
             }
             return result;
+
         }
         internal GenericList<T> AutoGrow()
         {
@@ -110,12 +133,62 @@ namespace Generics
 
             var newArray = new GenericList<T>(currentLength * 2);
 
-            for (int i = 0, j=0; i < this.InternalArray.Length; i++, j++)
+            for (int i = 0, j = 0; i < this.InternalArray.Length; i++, j++)
             {
                 newArray.InternalArray[i] = this.InternalArray[j];
             }
             return newArray;
         }
-       
+
+        private static bool GetMin(T a1, T a2)
+        {
+            if (a1.CompareTo(a2) < 0)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+        public T getArrayMin()
+        {
+            if (this.size == 0)
+                throw new NullReferenceException("We cannot find min value in an empty array");
+            var min = this.InternalArray[0];
+            for (var i = 1; i < this.size; i++)
+            {
+                if (GetMin(this.InternalArray[i], min))
+                {
+                    min = this.InternalArray[i];
+                }
+            }
+            return min;
+        }
+
+        //MAX
+        private static bool GetMax(T a1, T a2)
+        {
+            if (a1.CompareTo(a2) > 0)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+        public T getArrayMax()
+        {
+            if (this.size == 0)
+                throw new NullReferenceException("We cannot find max value in an empty array");
+            var max = this.InternalArray[0];
+            for (var i = 1; i < this.size; i++)
+            {
+                if (GetMax(this.InternalArray[i], max))
+                {
+                    max = this.InternalArray[i];
+                }
+            }
+            return max;
+        }
+
+
     }
 }

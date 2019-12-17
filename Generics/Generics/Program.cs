@@ -25,17 +25,21 @@ namespace Generics
             myList.Add(19);
             myList.Add(21);
 
-            var myElement = myList.GetByIndex(5);
-            Console.WriteLine(myElement);
+            //var myElement = myList.GetByIndex(5);
+           // Console.WriteLine(myElement);
 
-           
+            var min = myList.getArrayMin();
+            Console.WriteLine(min);
 
-            myList.InsertValueAt(9, 20);
+            var max = myList.getArrayMax();
+            Console.WriteLine(max);
 
-            myList.ClearList();
+            //myList.InsertValueAt(9, 20);
 
-            var myString = myList.ToString();
-            Console.WriteLine(myString);
+            //myList.ClearList();
+
+            //var myString = myList.ToString();
+            //Console.WriteLine(myString);
 
             Console.ReadKey();
         }
